@@ -4,16 +4,16 @@ import cs from './Statistics.module.css'
 
 
 
-export default function Statistics ({ title, stats }) {
+export default function Statistics ({ title, stats}) {
     return (
         <section className={cs.statistics}>
             {title && <h2 className={cs.title}>{title}</h2>}
 
             <ul className={cs.statList}>
-                {stats.map(stat => (
-                    <li className={cs.item} key={stat.id}>
-                        <span className={cs.label}>{stat.label}</span>
-                        <span className={cs.percentage}>{stat.percentage}%</span>
+                {stats.map(({id,label,percentage}) => (
+                    <li className={cs.item} key={id}>
+                        <span className={cs.label}>{label}</span>
+                        <span className={cs.percentage}>{percentage}%</span>
                     </li>
                 ))}
             </ul>
@@ -21,9 +21,12 @@ export default function Statistics ({ title, stats }) {
     );
 }
 
-Statistics.propTypes ={
-    title: PropTypes.string,
-    id:PropTypes.string,
-    label: PropTypes.string,
-    percentage: PropTypes.number,
+Statistics.propTypes = {
+    title: PropTypes.string.isRequired,
+    stats: PropTypes.arrayOf(
+        PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        percentage: PropTypes.number.isRequired,
+      })),
 }
